@@ -1,0 +1,501 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "Operaciones que se puede realizar en Netpay",
+    "title": "Netpay",
+    "version": "1.0",
+    "termsOfService": "http://example.com/about/terms",
+    "contact": {
+      "name": "API Docs"
+    }
+  },
+  "paths": {
+    "/user": {
+      "post": {
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "description": "Crea un usuario(operador)",
+        "summary": "CreateUser",
+        "operationId": "CreateUser",
+        "tags": [
+          "Create User"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserReq"
+              }
+            }
+          },
+          "description": "Parámetros de entrada para crear un usuario en Netpay",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/commission": {
+      "post": {
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "description": "Crea un comisionista",
+        "summary": "CommissionAgent",
+        "operationId": "CommissionAgent",
+        "tags": [
+          "Create Commission Agent"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCommissionAgentReq"
+              }
+            }
+          },
+          "description": "Parámetros de entrada para crear un comisionista en Netpay",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/store": {
+      "post": {
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "description": "Crea un comercio",
+        "summary": "CreateStore",
+        "operationId": "CreateStore",
+        "tags": [
+          "Create Store"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateStoreReq"
+              }
+            }
+          },
+          "description": "Parámetros de entrada para crear un comercio en Netpay",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://dev.apilab.gentera.com.mx/v1/netpay"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-KEY"
+      }
+    },
+    "schemas": {
+      "CreateUserReq": {
+        "description": "Parámetros para poder crear un usuario en Netpay",
+        "type": "object",
+        "properties": {
+          "UUID": {
+            "type": "string"
+          },
+          "CreateUserInputData": {
+            "$ref": "#/components/schemas/CreateUserInputData"
+          }
+        },
+        "required": [
+          "UUID",
+          "CreateUserInputData"
+        ]
+      },
+      "CreateUserInputData": {
+        "type": "object",
+        "properties": {
+          "StoreID": {
+            "type": "string"
+          },
+          "UserDataItem": {
+            "$ref": "#/components/schemas/UserDataItem"
+          }
+        },
+        "required": [
+          "AdditionalAuthData",
+          "StoreID"
+        ]
+      },
+      "UserDataItem": {
+        "type": "object",
+        "properties": {
+          "RoleID": {
+            "type": "string"
+          },
+          "NameData": {
+            "$ref": "#/components/schemas/NameData"
+          },
+          "AuthenticationCardID": {
+            "type": "string"
+          },
+          "BirthDate": {
+            "type": "string"
+          },
+          "ContactData": {
+            "type": "object",
+            "properties": {
+              "Email": {
+                "type": "string"
+              },
+              "MobileNumber": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "Email",
+              "MobileNumber"
+            ]
+          },
+          "DocumentIdentifier": {
+            "$ref": "#/components/schemas/DocumentIdentifier"
+          },
+          "Status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "RoleID",
+          "NameData",
+          "AuthenticationCardID",
+          "BirthDate",
+          "ContactData"
+        ]
+      },
+      "NameData": {
+        "type": "object",
+        "properties": {
+          "GivenName": {
+            "type": "string"
+          },
+          "MiddleName": {
+            "type": "string"
+          },
+          "FamilyName": {
+            "type": "string"
+          },
+          "AditionalFamilyName": {
+            "type": "string"
+          },
+          "Married": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "FamilyName",
+          "GivenName"
+        ]
+      },
+      "DocumentIdentifier": {
+        "type": "object",
+        "properties": {
+          "TypeCode": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "_listID": {
+                "type": "string"
+              },
+              "_listVersionID": {
+                "type": "string"
+              },
+              "_listAgencyID": {
+                "type": "string"
+              },
+              "_listAgencySchemeID": {
+                "type": "string"
+              },
+              "_listAgencySchemeAgencyID": {
+                "type": "string"
+              }
+            }
+          },
+          "ID": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "_schemeID": {
+                "type": "string"
+              },
+              "_schemeAgencyID": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": [
+          "ID",
+          "TypeCode"
+        ]
+      },
+      "CreateCommissionAgentReq": {
+        "type": "object",
+        "properties": {
+          "TaxRegime": {
+            "$ref": "#/components/schemas/TaxRegime"
+          },
+          "NameData": {
+            "$ref": "#/components/schemas/NameData"
+          },
+          "AddressData": {
+            "$ref": "#/components/schemas/AddressData"
+          },
+          "BankDetails": {
+            "$ref": "#/components/schemas/BankDetails"
+          },
+          "BirthDate": {
+            "type": "string"
+          },
+          "Status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "TaxRegime",
+          "NameData",
+          "BankDetails",
+          "BirthDate",
+          "Status",
+          "AddressData"
+        ]
+      },
+      "TaxRegime": {
+        "type": "object",
+        "properties": {
+          "TypeRegime": {
+            "type": "string"
+          },
+          "PaymentScheme": {
+            "type": "string"
+          },
+          "TaxID": {
+            "type": "string"
+          },
+          "TaxIDComplementCode": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "TaxIDComplementCode",
+          "TaxID",
+          "PaymentScheme",
+          "TypeRegime"
+        ]
+      },
+      "AddressData": {
+        "type": "object",
+        "properties": {
+          "AddressTypeCode": {
+            "type": "string"
+          },
+          "StreetName": {
+            "type": "string"
+          },
+          "CountryName": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "_languageCode": {
+                "type": "string"
+              }
+            }
+          },
+          "CityName": {
+            "type": "string"
+          },
+          "DistrictName": {
+            "type": "string"
+          },
+          "AdditionalCityName": {
+            "type": "string"
+          },
+          "RegionCode": {
+            "type": "string"
+          },
+          "CountryCode": {
+            "type": "string"
+          },
+          "StreetPostalCode": {
+            "type": "string"
+          },
+          "HouseID": {
+            "type": "string"
+          },
+          "AdditionalHouseID": {
+            "type": "string"
+          },
+          "LocationReference": {
+            "type": "string"
+          },
+          "Street1": {
+            "type": "string"
+          },
+          "Street2": {
+            "type": "string"
+          },
+          "Zone": {
+            "type": "string"
+          },
+          "GeoCoordinates": {
+            "type": "object",
+            "properties": {
+              "LatitudeMeasure": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "_unitCode": {
+                    "type": "string"
+                  }
+                }
+              },
+              "LongitudeMeasure": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "_unitCode": {
+                    "type": "string"
+                  }
+                }
+              },
+              "AltitudeMeasure": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "_unitCode": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "BankDetails": {
+        "type": "object",
+        "properties": {
+          "BankAccountID": {
+            "type": "string"
+          },
+          "BankID": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "_schemeAgencyID": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": [
+          "BankAccountID",
+          "BankID"
+        ]
+      },
+      "CreateStoreReq": {
+        "type": "object",
+        "properties": {
+          "CommissionAgentID": {
+            "type": "string"
+          },
+          "Name": {
+            "type": "string"
+          },
+          "AddressData": {
+            "$ref": "#/components/schemas/AddressData"
+          },
+          "Status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "CommissionAgentID",
+          "Name",
+          "Status",
+          "AddressData"
+        ]
+      }
+    }
+  }
+}
